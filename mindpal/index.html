@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tips for Patients</title>
+    <link rel="stylesheet" href="/style.css"/> 
+</head>
+<body onload="loadDailyTip()">
+    <header>
+        <h1>Welcome to mindpal for Patients</h1>
+        <p>Your daily guide to better health and wellness.</p>
+    </header>
+    
+    <main>
+        <section id="daily-tip-section">
+            <h2>Daily Health Tip</h2>
+            <p id="daily-tip">Loading today's health tip...</p>
+            <button onclick="loadDailyTip()">Next Tip</button>
+        </section>
+
+<section id="goals-section">
+    <h2>Personalized Health Goals</h2>
+    <input type="text" id="goal-input" placeholder="Enter your health goal">
+    <button onclick="addGoal()">Add Goal</button>
+    <ul id="goal-list"></ul>
+</section>
+
+        <section id="symptoms-checker-section">
+            <h2>Symptoms Checker</h2>
+            <p>Enter your symptoms below to receive general health advice:</p>
+            <textarea id="symptoms-input" rows="3" placeholder="e.g., Persistent sadness,Mood Disorders"></textarea>
+            <button onclick="checkSymptoms()">Check Symptoms</button>
+            <p id="symptoms-advice"></p>
+        </section>
+
+        <section id="condition-tips-section">
+            <h2>Condition-Specific Tips</h2>
+            <select id="condition-select" onchange="displayConditionTip()">
+                <option value="">Select a Condition</option>
+                <option value=" Mood Disorders
+                "> Mood Disorders
+            </option>
+                <option value="Anxiety Disorders
+                ">Anxiety Disorders
+            </option>
+                <option value="Personality Disorders
+                ">Personality Disorders
+            </option>
+                <option value="Trauma- and Stressor-Related Disorders
+                ">Trauma- and Stressor-Related Disorders
+            </option>
+                <option value="Neurodevelopmental Disorders
+
+                ">Neurodevelopmental Disorders
+            </option>
+                <option value="Somatic Symptom and Related Disorders
+
+                ">Somatic Symptom and Related Disorders
+
+            </option>
+        
+            </select>
+            <p id="condition-tip"></p>
+            <section>
+            <form action="health form">
+                <label for="concern">Enter your mental health concern</label>
+                <input type="text" id="concern" name="concern" required>
+                <button type="submit">Get suggestions</button>
+            </form>
+        </section>
+        <p id="team-members"><b>Team Members</b></p>
+            <div id="team-members">
+            <li> Abdulaziz Abdullahi Yahuza</li>
+            <ul>Fellow ID: FE/23/50762874</ul>
+            </div>
+            <div id="team-members">
+                <li>Abdulganiyu Ahmad Balele </li>
+                <ul>Fellow ID: FE/23/29493252</ul>
+                </div>
+                <div id="team-members">
+                    <li>Mariya Ibrahim Naiya </li>
+                    <ul>Fellow ID: FE/23/10090881</ul>
+                    </div>
+                    
+    </main>
+
+    <script>
+const healthTips =[
+    "Aim for at least 30 minutes of moderate exercise most days of the week.",
+    "Include plenty of fruits, vegetables, whole grains, and lean proteins.",
+    "Adults should aim for 7-9 hours of sleep per night.",
+    "Take short breaks throughout the day to stretch and relieve tension in your muscles .",
+    "Practice mindful breathing exercises to reduce stress and improve focus.",
+    "Try to get at least 7-8 hours of sleep each night for optimal rest and recovery.",
+    "Limit your sugar intake to help maintain healthy blood sugar levels.",
+    "Practice good posture to reduce strain on your back and improve your alignment.",
+    "Replace one sugary drink with water or herbal tea to reduce sugar intake.",
+    "Spend at least 15 minutes outdoors to get natural sunlight and boost your mood.",
+    "Eat a variety of foods to ensure you're getting all necessary vitamins and minerals.",
+    "Wash your hands regularly to reduce the risk of infections and illness.",
+    "Take a few minutes each day to practice gratitude for mental well-being.",
+    "Swap refined grains for whole grains to increase your fiber intake.",
+    "Set a consistent sleep schedule to help regulate your body's internal clock.",
+    "Eat meals mindfully, chewing slowly to aid digestion and enjoy your food more.",
+    "Incorporate lean proteins, like fish or beans, to support muscle health.",
+    "Engage in a hobby or creative activity to reduce stress and improve happiness.",
+    "Try to walk more often – take the stairs, park further away, or walk during breaks.",
+    "Practice Mindfulness and Meditation.",
+    "Take a few minutes each day to meditate and clear your mind.",
+    "Don’t hesitate to reach out to a mental health professional if you feel overwhelmed or are struggling with persistent negative emotions.",
+    "Limit processed foods and opt for fresh, whole foods whenever possible.",
+    "Make time for social connection to improve mental and emotional well-being.",
+    "Practice balance exercises to improve stability and reduce the risk of falls.",
+    "Add a variety of colorful vegetables to your meals to increase antioxidant intake.",
+    "Practice positive self-talk to build self-confidence and reduce stress.",
+    "Set small, achievable health goals each week to stay motivated.",
+    "Eat healthy fats, like avocado or nuts, to support brain and heart health.",
+    "Laugh more! Laughter boosts immunity and reduces stress hormones.",
+];
+
+function loadDailyTip() {
+    const tip = healthTips[Math.floor(Math.random() * healthTips.length)];
+    document.getElementById("daily-tip").innerText = tip;
+}
+
+function addGoal() {
+    const goalInput = document.getElementById("goal-input");
+    const goalList = document.getElementById("goal-list");
+    const goalText = goalInput.value.trim();
+
+    if (goalText) {
+        const listItem = document.createElement("li");
+        listItem.classList.add("goal-item"); 
+        
+        const goalSpan = document.createElement("span");
+        goalSpan.innerText = goalText;
+        listItem.appendChild(goalSpan);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
+        deleteButton.classList.add("delete-button");
+        deleteButton.onclick = function () {
+            goalList.removeChild(listItem); 
+        };
+        
+        listItem.appendChild(deleteButton);
+        goalList.appendChild(listItem);
+        
+        goalInput.value = ""; 
+    }
+}
+
+function checkSymptoms() {
+    const symptoms = document.getElementById("symptoms-input").value.toLowerCase();
+    const adviceElement = document.getElementById("symptoms-advice");
+    
+    if (symptoms.includes("Persistent sadness") || symptoms.includes("persistent sadness")) {
+        adviceElement.innerText = "Feeling down most of the time,even without a clear cause. Seek medical advice if symptoms persist.";
+    } else if (symptoms.includes("Headaches")) {
+        adviceElement.innerText = "Headaches can be caused by many factors. Ensure you're hydrated and consider seeing a doctor if it persists.";
+    } else if (symptoms.includes("Social withdrawal")) {
+        adviceElement.innerText = "Avoiding friends,family or social events.Engage in regular physical activity to boost your mood.";
+    }else if (symptoms.includes("physical symptoms")) {
+        adviceElement.innerText = "Avoid substances.limit alcohol and stay away from recreational drugs";
+    }else {
+        adviceElement.innerText = "No specific advice. Please consult a healthcare provider for proper diagnosis.";
+    }
+}
+
+const conditionTips = {
+    Persistent sadness : " Establish Healthy Routines Sleep Well: Aim for 7-9 hours of quality sleep each night. Eat Nutritiously: Focus on balanced meals with fruits, vegetables, and whole grains."
+
+    
+    Social withdrawal: "Stay Connected: Talk to friends, family, or a trusted person about how you are feeling.",
+    
+    physical symptoms: "Therapist or Counselor: They can help you develop coping strategies and identify the root causes of your feelings.",
+    
+    hiv: "Take antiretroviral therapy (ART) as prescribed, eat a balanced diet, and engage in regular physical activity to maintain immunity. Stay in close contact with your healthcare provider for regular monitoring.",
+    
+    arthritis: "Engage in gentle, low-impact exercises like walking or swimming to strengthen muscles around your joints. Use heat and cold therapy to relieve joint pain and stiffness.",
+    
+    mental_health: "Practice mindfulness and deep breathing exercises to manage stress. Make time for enjoyable activities and seek support from loved ones or a mental health professional if needed.",
+    
+    heart_disease: "Eat heart-healthy foods like fruits, vegetables, whole grains, and lean proteins. Engage in daily physical activity, limit saturated fat, and avoid smoking.",
+    
+    obesity: "Focus on balanced portion sizes, reduce sugary and processed foods, and incorporate regular exercise. Setting small, achievable goals can make lifestyle changes easier to maintain.",
+    
+    osteoporosis: "Get enough calcium and vitamin D, include weight-bearing exercises, and avoid smoking and excessive alcohol to support bone health.",
+    
+    chronic_kidney_disease: "Manage blood pressure and blood sugar, reduce salt intake, stay hydrated, and avoid high-protein diets that strain kidney function.",
+    
+    copd: "Avoid exposure to smoke, dust, and other lung irritants. Engage in pulmonary rehabilitation exercises and use medications as prescribed by your healthcare provider.",
+    
+    migraines: "Identify and avoid triggers, stay hydrated, get regular sleep, and consider relaxation techniques like meditation or yoga to prevent migraines.",
+    
+    anemia: "Consume iron-rich foods like leafy greens, red meat, and beans. Vitamin C can help with iron absorption, so try to include a variety of fruits and vegetables.",
+    
+    gout: "Avoid high-purine foods (like red meat and certain seafood), drink plenty of water, and limit alcohol, especially beer, to prevent gout flare-ups.",
+    
+    thyroid_disorders: "Take medications as prescribed and schedule regular thyroid function tests. Ensure you're getting enough iodine (for hypothyroidism) but avoid excessive iodine intake if you have hyperthyroidism.",
+    
+    alzheimer: "Engage in memory-enhancing activities, maintain a balanced diet, stay physically active, and establish a structured daily routine to improve cognitive function.",
+};
+
+function displayConditionTip() {
+    const condition = document.getElementById("condition-select").value;
+    const tip = conditionTips[condition];
+    document.getElementById("condition-tip").innerText = tip ? tip : "";
+}
+    </script>
+
+</body>
+</html>
